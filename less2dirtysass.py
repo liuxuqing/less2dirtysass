@@ -11,9 +11,6 @@ import re
 identifier_pat = r'[_a-zA-Z][_a-zA-Z0-9-]*'
 
 
-print r'@({})'.format(identifier_pat)
-
-
 def convert(src):
     # Verbatim impl of steps at:
     # https://github.com/jlong/sass-twitter-bootstrap#sass-conversion-quick-tips
@@ -30,14 +27,14 @@ def convert(src):
     return src
 
 
-def convert_file(filename, backup=False):
+def convert_file(filename):
     src = None
     with open(filename) as f:
         src = f.read()
     src = convert(src)
+    filename = filename.replace('.less', '.scss')
     with open(filename, 'w') as f:
         f.write(src)
-    # TODO backup
 
 for f in sys.argv[1:]
     convert_file(f)
